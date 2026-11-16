@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1c1c1c">
+<title>Grayali up · Tableau de bord</title>
+<link rel="icon" href="icon.svg">
+<link rel="preload" href="fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com">
+<style>
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:700 800;font-display:swap;src:url(fonts/montserrat.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/poppins-400.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/poppins-500.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/poppins-600.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/poppins-700.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/poppins-800.woff2) format('woff2')}
+:root{color-scheme:dark;--bg:#1c1c1c;--bg2:#232323;--card:#2a2a2a;--ink:#fdf2e7;--ink2:#e6d6c5;--mu:#c9b8a6;--line:#3d3631;--gold:#e9a84b;--gold2:#f3b95f;--ok:#7fd6a3;--okbg:#1f3a2b;--blue:#9cc1ff;--bluebg:#1f2b40;--warn:#f0a06a;--warnbg:#3d2a1f;--red:#ef6b55;--redbg:#3d1f1b;--ff:"Poppins",system-ui,sans-serif;--fd:"Montserrat",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--ff);-webkit-font-smoothing:antialiased;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
+[hidden]{display:none!important}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+a{color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.logo{font-family:var(--fd);font-weight:800;font-size:21px;display:flex;align-items:center;gap:8px;letter-spacing:-.02em}
+.logo i{font-style:normal;background:var(--gold);color:#1c1c1c;padding:0 8px 2px;border-radius:8px;transform:rotate(-3deg);display:inline-block;font-size:18px}
+.btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 16px;border-radius:999px;font-weight:700;font-size:14px;white-space:nowrap;transition:transform .12s,background .15s,opacity .15s}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.45}
+.btn.p{background:var(--gold);color:#1c1c1c}
+.btn.o{background:var(--card);border:1px solid var(--line)}
+.btn.g{background:#1fa855;color:#fff}
+.btn.r{background:var(--redbg);color:var(--red)}
+.btn.sm{height:36px;padding:0 13px;font-size:13px}
+.btn svg{width:17px;height:17px}
+input,select{height:46px;padding:0 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);width:100%;font-size:16px}
+input:focus,select:focus{outline:none;border-color:var(--gold)}
+
+/* Connexion */
+.login{min-height:100dvh;display:grid;place-items:center;padding:24px}
+.lcard{width:100%;max-width:380px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:30px 26px;display:flex;flex-direction:column;gap:14px}
+.lcard h1{font-family:var(--fd);font-size:24px;margin:8px 0 0}
+.lcard p{margin:0;color:var(--mu);font-size:14px}
+.chk{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink2)}
+.chk input{width:20px;height:20px;accent-color:var(--gold)}
+.err{color:var(--red);font-size:14px;font-weight:600;min-height:0;margin:0}
+.err:empty{display:none}
+
+/* En-tête */
+.top{position:sticky;top:0;z-index:20;background:rgba(28,28,28,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.top .wrap{display:flex;align-items:center;gap:10px;height:62px}
+.live{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--mu);margin-left:auto}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(127,214,163,.6);animation:pl 2s infinite}
+.dot.off{background:var(--red);animation:none}
+@keyframes pl{70%{box-shadow:0 0 0 8px rgba(127,214,163,0)}100%{box-shadow:0 0 0 0 rgba(127,214,163,0)}}
+.ib{width:40px;height:40px;border-radius:999px;display:grid;place-items:center;background:var(--card);border:1px solid var(--line)}
+.ib svg{width:19px;height:19px}
+.ib.spin svg{animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* Alerte nouvelle commande */
+.alert{position:fixed;left:50%;top:calc(72px + env(safe-area-inset-top,0px));transform:translate(-50%,-30px);opacity:0;pointer-events:none;z-index:40;background:var(--gold);color:#1c1c1c;font-weight:800;padding:12px 18px;border-radius:16px;box-shadow:0 14px 40px rgba(0,0,0,.5);transition:all .3s;display:flex;gap:10px;align-items:center;max-width:calc(100% - 32px)}
+.alert.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.sound{display:flex;align-items:center;gap:10px;justify-content:space-between;margin:12px 0 0;padding:10px 14px;border-radius:14px;background:var(--warnbg);color:var(--warn);font-weight:600;font-size:14px}
+
+/* Chiffres */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0 4px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.kpi b{display:block;font-family:var(--fd);font-size:26px;line-height:1.1;letter-spacing:-.02em}
+.kpi span{font-size:12.5px;color:var(--mu)}
+.kpi.hl{border-color:rgba(233,168,75,.55);background:linear-gradient(140deg,rgba(233,168,75,.16),var(--card))}
+.kpi.hl b{color:var(--gold)}
+@media (max-width:700px){.kpis{grid-template-columns:repeat(2,1fr)}}
+
+/* Onglets */
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:16px 0 14px;padding:2px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;height:40px;padding:0 15px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:13.5px;color:var(--ink2);display:flex;align-items:center;gap:7px}
+.tab.on{background:var(--ink);color:#1c1c1c;border-color:var(--ink)}
+.tab .n{min-width:20px;height:20px;border-radius:999px;background:var(--gold);color:#1c1c1c;font-size:11.5px;display:grid;place-items:center;padding:0 6px}
+.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.bar input{flex:1;min-width:180px;height:42px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg2);font-size:13px;font-weight:600;color:var(--ink2)}
+.chip.on{background:var(--gold);color:#1c1c1c;border-color:var(--gold)}
+.note{color:var(--mu);font-size:13.5px;margin:0 0 12px}
+.empty{text-align:center;color:var(--mu);padding:40px 10px;background:var(--card);border:1px dashed var(--line);border-radius:18px}
+
+/* Commandes */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.oc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.oc.new{border-color:var(--gold);box-shadow:0 0 0 2px rgba(233,168,75,.35)}
+.oh{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.code{font-family:var(--fd);font-weight:800;font-size:22px;letter-spacing:.04em}
+.st{font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px}
+.st.w{background:var(--warnbg);color:var(--warn)}.st.p{background:var(--okbg);color:var(--ok)}.st.l{background:var(--bluebg);color:var(--blue)}.st.a{background:#333;color:#aaa}
+.res{font-weight:600;font-size:14.5px;line-height:1.45}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:13.5px;color:var(--ink2)}
+.meta dt{color:var(--mu)}.meta dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.extra{font-size:13px;padding:9px 11px;border-radius:12px;background:var(--bg2);color:var(--ink2);display:flex;flex-direction:column;gap:3px}
+.extra b{color:var(--gold);font-weight:700}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.tot{font-family:var(--fd);font-weight:800;font-size:18px}
+
+/* Livraisons du jour */
+.place{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:12px;overflow:hidden}
+.ph{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;background:var(--bg2);border-bottom:1px solid var(--line)}
+.ph h3{margin:0;font-family:var(--fd);font-size:17px}
+.ph span{font-size:13px;color:var(--mu)}
+.pc{font-weight:800;color:var(--gold);font-size:15px;white-space:nowrap}
+.dl{display:flex;flex-direction:column}
+.di{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:start;padding:12px 16px;border-bottom:1px solid var(--line)}
+.di:last-child{border-bottom:0}
+.di .code{font-size:17px}
+.di small{display:block;color:var(--mu);font-size:12.5px}
+.daysw{display:inline-flex;padding:4px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+.daysw button{height:34px;padding:0 14px;border-radius:999px;font-weight:700;font-size:13px;color:var(--mu)}
+.daysw button.on{background:var(--ink);color:#1c1c1c}
+
+/* Stock */
+.sk{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.si{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.si span{flex:1;font-weight:600;font-size:14px;min-width:0}
+.si small{display:block;color:var(--mu);font-weight:500;font-size:12px}
+.si input{width:76px;height:40px;text-align:center;padding:0 6px}
+.si.low input{border-color:var(--warn)}.si.out input{border-color:var(--red)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
+.box h3{margin:0;font-family:var(--fd);font-size:17px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row select,.row input{flex:1;min-width:140px}
+.pt{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.pt span{flex:1}
+.prog{flex:1.4;height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+.prog i{display:block;height:100%;background:var(--gold);border-radius:999px}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:40;background:var(--ink);color:#1c1c1c;font-weight:700;padding:11px 16px;border-radius:14px;transition:all .25s;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* Impression : feuille de livraison */
+@media print{
+  body{background:#fff;color:#000;padding:0}
+  .top,.tabs,.kpis,.bar,.noprint,.alert,.toast,.sound{display:none!important}
+  .place{border:1px solid #999;break-inside:avoid;background:#fff}
+  .ph{background:#eee;border-color:#999}.ph h3,.ph span,.pc{color:#000}
+  .di{border-color:#ccc}.di small,.meta dt{color:#333}
+  .st{border:1px solid #000;background:#fff!important;color:#000!important}
+  .printhead{display:block!important}
+}
+.printhead{display:none;font-family:var(--fd);margin:0 0 10px}
+</style>
+</head>
+<body>
+
+<div class="login" id="login">
+  <form class="lcard" id="lform">
+    <div class="logo">Grayali <i>up</i></div>
+    <h1>Tableau de bord</h1>
+    <p>Entrez votre mot de passe pour gérer les commandes, le stock et les livraisons.</p>
+    <input id="pw" type="password" autocomplete="current-password" placeholder="Mot de passe">
+    <label class="chk"><input type="checkbox" id="keep" checked> Rester connecté sur cet appareil</label>
+    <p class="err" id="lerr"></p>
+    <button class="btn p" type="submit" style="height:50px;font-size:15px">Se connecter</button>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header class="top">
+    <div class="wrap">
+      <div class="logo">Grayali <i>up</i></div>
+      <div class="live"><span class="dot" id="ldot"></span><span id="ltx">En direct</span></div>
+      <button class="ib" id="rb" onclick="load()" aria-label="Actualiser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg></button>
+      <button class="ib" onclick="logout()" aria-label="Se déconnecter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></button>
+    </div>
+  </header>
+  <main class="wrap">
+    <div class="sound" id="snd" hidden><span>🔔 Touchez pour activer le son des nouvelles commandes</span><button class="btn sm p" onclick="unlockAudio(true)">Activer</button></div>
+    <div class="kpis" id="kpis"></div>
+    <nav class="tabs" id="tabs"></nav>
+    <section id="view"></section>
+  </main>
+</div>
+
+<div class="alert" id="alert" onclick="goTab('o');this.classList.remove('on')"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* Même adresse que les sites (Google Apps Script) */
+var API = "https://script.google.com/macros/s/AKfycbxrVnJxud2inVGScyjxx62wTCWR8gRercJ4ymEw1vm27Jdy5RAITPDsCtudzUOWEMGNaw/exec";
+var REFRESH_S = 20;          // rafraîchissement automatique (secondes)
+var KEY_LS = "gupAdminKey";  // mot de passe gardé sur cet appareil si « Rester connecté »
+
+var key="",D=null,tab="j",flt="todo",q="",dayView="today",known=null,fresh={},busy=false,lastOk=0,timer=null,audioCtx=null,unread=0,baseTitle=document.title;
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function f(n){return (Number(n)||0).toLocaleString("fr-FR").replace(/[  ]/g," ")+" FCFA"}
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
+function ss(k,v){try{if(v===undefined)return sessionStorage.getItem(k);if(v===null)sessionStorage.removeItem(k);else sessionStorage.setItem(k,v)}catch(e){return null}}
+var tt;function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("on")},2600)}
+function api(o){o.key=key;return fetch(API,{method:"POST",body:JSON.stringify(o)}).then(function(r){return r.json()})}
+
+/* ---------- Connexion ---------- */
+$("#lform").addEventListener("submit",function(e){e.preventDefault();key=$("#pw").value.trim();if(!key)return;unlockAudio(false);load(true)});
+function logout(){key="";ls(KEY_LS,null);ss("gupAdminKey",null);clearInterval(timer);location.reload()}
+function enterApp(){
+  $("#login").hidden=true;$("#app").hidden=false;
+  if($("#keep").checked)ls(KEY_LS,key);else ss("gupAdminKey",key);
+  clearInterval(timer);timer=setInterval(function(){if(!document.hidden)load()},REFRESH_S*1000);
+}
+document.addEventListener("visibilitychange",function(){if(!document.hidden&&key)load()});
+
+/* ---------- Son des nouvelles commandes ---------- */
+function unlockAudio(test){
+  try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==="suspended")audioCtx.resume()}catch(e){}
+  $("#snd").hidden=true;if(test)ding();
+}
+function ding(){
+  if(!audioCtx)return;
+  try{[0,.18,.36].forEach(function(t,i){var o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="sine";o.frequency.value=[880,1175,1568][i];g.gain.setValueAtTime(.0001,audioCtx.currentTime+t);g.gain.exponentialRampToValueAtTime(.35,audioCtx.currentTime+t+.02);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+t+.25);o.connect(g);g.connect(audioCtx.destination);o.start(audioCtx.currentTime+t);o.stop(audioCtx.currentTime+t+.3)})}catch(e){}
+}
+function notifyNew(list){
+  unread+=list.length;document.title="("+unread+") Nouvelle commande · Grayali up";
+  var a=$("#alert");a.innerHTML="🔔 "+(list.length>1?list.length+" nouvelles commandes":"Nouvelle commande "+esc(list[0].code)+" · "+f(list[0].total));a.classList.add("on");
+  setTimeout(function(){a.classList.remove("on")},8000);
+  ding();try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}
+}
+window.addEventListener("focus",function(){unread=0;document.title=baseTitle});
+
+/* ---------- Chargement ---------- */
+function load(first){
+  if(busy)return;busy=true;$("#rb").classList.add("spin");
+  api({action:"data"}).then(function(d){
+    busy=false;$("#rb").classList.remove("spin");
+    if(!d.ok){
+      if(first){$("#lerr").textContent=d.error||"Mot de passe incorrect.";key="";}
+      else{toast(d.error||"Session expirée");logout()}
+      return;
+    }
+    if(first||$("#app").hidden)enterApp();
+    lastOk=Date.now();$("#ldot").className="dot";
+    var codes={};(d.orders||[]).forEach(function(o){codes[o.code+"|"+o.row]=1});
+    if(known){var nw=(d.orders||[]).filter(function(o){return !known[o.code+"|"+o.row]});if(nw.length){nw.forEach(function(o){fresh[o.code+"|"+o.row]=1});notifyNew(nw)}}
+    known=codes;D=d;draw();
+  }).catch(function(){
+    busy=false;$("#rb").classList.remove("spin");
+    if(first){$("#lerr").textContent="Connexion impossible. Vérifiez internet et réessayez."}
+    else{$("#ldot").className="dot off";$("#ltx").textContent="Hors ligne, nouvel essai…"}
+  });
+}
+setInterval(function(){if(!lastOk||$("#app").hidden)return;var s=Math.round((Date.now()-lastOk)/1000);if($("#ldot").className==="dot")$("#ltx").textContent=s<5?"En direct · à jour":"En direct · il y a "+s+" s"},1000);
+
+/* ---------- Outils ---------- */
+var MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+function dayLabel(offset){var d=new Date(Date.now()+offset*86400000);return d.getUTCDate()+" "+MOIS[d.getUTCMonth()]}
+function nextWorkLabel(){var k=1;while(true){var d=new Date(Date.now()+k*86400000),w=d.getUTCDay();if(w>0&&w<6)return dayLabel(k);k++}}
+function isOn(o,label){return new RegExp("(^|\\D)"+label.replace(/ /g,"\\s+")+"(\\D|$)","i").test(o.jour||"")}
+function plates(o){var n=0,m,re=/(\d+)\s*[x×]/gi;while((m=re.exec(o.resume||"")))n+=+m[1];return n}
+function parseNom(s){var r={nom:"",team:"",note:""};String(s||"").split(" · ").forEach(function(p){p=p.trim();if(!p)return;if(/^Équipe →/.test(p))r.team=p.replace(/^Équipe →\s*/,"");else if(/^Note →/.test(p))r.note=p.replace(/^Note →\s*/,"");else r.nom=r.nom?r.nom+" · "+p:p});return r}
+function waNum(t){var d=String(t||"").replace(/\D/g,"");if(!d)return "";if(d.indexOf("225")===0&&d.length>10)return d;return "225"+d}
+function stCls(s){return s==="Payé"?"p":s==="Livré"?"l":s==="Annulé"?"a":"w"}
+function stTx(s){return s==="En attente"?"À payer":s}
+function key2(o){return o.code+"|"+o.row}
+function norm(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/\s+/g," ").trim()}
+
+/* ---------- Affichage ---------- */
+function goTab(t){tab=t;unread=0;document.title=baseTitle;draw();window.scrollTo(0,0)}
+function draw(){
+  var O=D.orders||[],today=dayLabel(0);
+  var todays=O.filter(function(o){return isOn(o,today)&&o.statut!=="Annulé"});
+  var todo=O.filter(function(o){return o.statut==="En attente"});
+  var cash=todays.filter(function(o){return o.statut==="Payé"||o.statut==="Livré"}).reduce(function(a,o){return a+Number(o.total||0)},0);
+  var pl=todays.reduce(function(a,o){return a+plates(o)},0);
+  $("#kpis").innerHTML=
+    '<div class="kpi hl"><b>'+todo.length+'</b><span>à payer (en attente)</span></div>'+
+    '<div class="kpi"><b>'+todays.length+'</b><span>livraisons aujourd’hui</span></div>'+
+    '<div class="kpi"><b>'+(pl||"—")+'</b><span>plats à livrer aujourd’hui</span></div>'+
+    '<div class="kpi"><b>'+f(cash).replace(" FCFA","")+'</b><span>FCFA encaissés (jour)</span></div>';
+  var rw=(D.rewards||[]).length;
+  var T=[["j","🚚 Livraisons",todays.filter(function(o){return o.statut!=="Livré"}).length],["o","🧾 Commandes",todo.length],["s","📦 Stock",0],["p","⭐ Points",0],["r","🎁 Cadeaux",rw]];
+  $("#tabs").innerHTML=T.map(function(x){return '<button class="tab'+(tab===x[0]?" on":"")+'" onclick="goTab(\''+x[0]+'\')">'+x[1]+(x[2]?'<span class="n">'+x[2]+'</span>':"")+'</button>'}).join("");
+  var v=$("#view");
+  if(tab==="j")v.innerHTML=viewDeliveries();
+  if(tab==="o")v.innerHTML=viewOrders();
+  if(tab==="s")v.innerHTML=viewStock();
+  if(tab==="p")v.innerHTML=viewPoints();
+  if(tab==="r")v.innerHTML=viewRewards();
+}
+function orderCard(o){
+  var n=parseNom(o.nom),k=key2(o),wa=waNum(o.tel);
+  var btn=function(s,l,c){return o.statut===s?"":'<button class="btn sm '+c+'" onclick="setSt('+o.row+',\''+s+'\')">'+l+'</button>'};
+  var msgPay="Bonjour"+(n.nom?" "+n.nom.split(" ")[0]:"")+", merci pour votre commande Grayali up "+o.code+" ("+f(o.total)+"). Voici le lien pour payer par Wave : ";
+  var msgGo="Bonjour, votre commande Grayali up "+o.code+" est en route 🛵. Merci de préparer votre code "+o.code+" pour le livreur.";
+  return '<article class="oc'+(fresh[k]?" new":"")+'"><div class="oh"><span class="code">'+esc(o.code)+'</span><span class="st '+stCls(o.statut)+'">'+esc(stTx(o.statut))+'</span></div>'+
+    '<div class="res">'+esc(o.resume)+'</div>'+
+    '<dl class="meta"><dt>Jour</dt><dd>'+esc(o.jour||"—")+'</dd><dt>Lieu</dt><dd>'+esc(o.lieu||"—")+'</dd>'+(n.nom?'<dt>Nom</dt><dd>'+esc(n.nom)+'</dd>':'')+'<dt>Tél.</dt><dd>'+esc(o.tel||"—")+'</dd><dt>Total</dt><dd class="tot">'+f(o.total)+'</dd></dl>'+
+    (n.team||n.note?'<div class="extra">'+(n.team?'<span><b>Équipe :</b> '+esc(n.team)+'</span>':'')+(n.note?'<span><b>Instructions :</b> '+esc(n.note)+'</span>':'')+'</div>':'')+
+    '<div class="acts">'+btn("Payé","✓ Payé reçu","p")+btn("Livré","🛵 Livré","o")+(o.statut==="Annulé"?"":'<button class="btn sm r" onclick="cancelOrder('+o.row+',\''+esc(o.code)+'\')">Annuler</button>')+'</div>'+
+    (wa&&o.statut!=="Annulé"?'<div class="acts">'+(o.statut==="En attente"?'<a class="btn sm g" target="_blank" rel="noopener" href="https://wa.me/'+wa+'?text='+encodeURIComponent(msgPay)+'">Envoyer le lien Wave</a>':'')+(o.statut==="Payé"?'<a class="btn sm o" target="_blank" rel="noopener" href="https://wa.me/'+wa+'?text='+encodeURIComponent(msgGo)+'">Prévenir : en route</a>':'')+'<a class="btn sm o" target="_blank" rel="noopener" href="https://wa.me/'+wa+'">WhatsApp</a></div>':'')+
+  '</article>';
+}
+function viewOrders(){
+  var O=(D.orders||[]).slice();
+  var F=[["todo","À payer"],["paid","Payées, à livrer"],["done","Livrées"],["cx","Annulées"],["all","Toutes"]];
+  var fl=O.filter(function(o){
+    if(flt==="todo"&&o.statut!=="En attente")return false;
+    if(flt==="paid"&&o.statut!=="Payé")return false;
+    if(flt==="done"&&o.statut!=="Livré")return false;
+    if(flt==="cx"&&o.statut!=="Annulé")return false;
+    if(q){var h=norm([o.code,o.tel,o.lieu,o.nom,o.resume,o.jour].join(" "));if(h.indexOf(norm(q))<0)return false}
+    return true;
+  });
+  return '<div class="bar"><input type="search" placeholder="Chercher : code, téléphone, entreprise…" value="'+esc(q)+'" oninput="q=this.value;var c=this.selectionStart;draw();var i=document.querySelector(\'.bar input\');i.focus();i.setSelectionRange(c,c)"></div>'+
+    '<div class="chips" style="margin-bottom:14px">'+F.map(function(x){return '<button class="chip'+(flt===x[0]?" on":"")+'" onclick="flt=\''+x[0]+'\';draw()">'+x[1]+'</button>'}).join("")+'</div>'+
+    (fl.length?'<div class="grid">'+fl.map(orderCard).join("")+'</div>':'<div class="empty">Aucune commande ici.</div>');
+}
+function viewDeliveries(){
+  var label=dayView==="today"?dayLabel(0):nextWorkLabel();
+  var list=(D.orders||[]).filter(function(o){return isOn(o,label)&&o.statut!=="Annulé"});
+  var groups={},order=[];
+  list.forEach(function(o){var g=norm(o.lieu)||"(lieu non indiqué)";if(!groups[g]){groups[g]={name:o.lieu||"Lieu non indiqué",items:[]};order.push(g)}groups[g].items.push(o)});
+  order.sort(function(a,b){return groups[b].items.length-groups[a].items.length});
+  var totPl=list.reduce(function(a,o){return a+plates(o)},0),unpaid=list.filter(function(o){return o.statut==="En attente"}).length;
+  var h='<div class="bar noprint"><div class="daysw"><button class="'+(dayView==="today"?"on":"")+'" onclick="dayView=\'today\';draw()">Aujourd’hui</button><button class="'+(dayView==="next"?"on":"")+'" onclick="dayView=\'next\';draw()">Prochain jour</button></div><span style="flex:1"></span><button class="btn o sm" onclick="window.print()">🖨️ Imprimer la feuille</button></div>';
+  h+='<h2 class="printhead">Grayali up · Livraisons du '+esc(label)+' · 12h–12h40</h2>';
+  h+='<p class="note">'+esc(label)+' · '+list.length+' commande'+(list.length>1?"s":"")+(totPl?' · '+totPl+' plats':'')+(unpaid?' · <b style="color:var(--warn)">'+unpaid+' pas encore payée'+(unpaid>1?"s":"")+'</b>':'')+'</p>';
+  if(!list.length)return h+'<div class="empty">Aucune livraison prévue pour ce jour.</div>';
+  order.forEach(function(g){
+    var G=groups[g],n=G.items.reduce(function(a,o){return a+plates(o)},0);
+    h+='<div class="place"><div class="ph"><div><h3>📍 '+esc(G.name)+'</h3><span>'+G.items.length+' commande'+(G.items.length>1?"s":"")+'</span></div><span class="pc">'+(n?n+" plat"+(n>1?"s":""):"")+'</span></div><div class="dl">';
+    G.items.forEach(function(o){var p=parseNom(o.nom);h+='<div class="di"><span class="code">'+esc(o.code)+'</span><div><b style="font-weight:600">'+esc(o.resume)+'</b>'+(p.nom?'<small>👤 '+esc(p.nom)+' · '+esc(o.tel||"")+'</small>':'<small>'+esc(o.tel||"")+'</small>')+(p.team?'<small>👥 '+esc(p.team)+'</small>':'')+(p.note?'<small>📝 '+esc(p.note)+'</small>':'')+'</div><div style="text-align:right;display:flex;flex-direction:column;gap:6px;align-items:flex-end"><span class="st '+stCls(o.statut)+'">'+esc(stTx(o.statut))+'</span>'+(o.statut==="Payé"?'<button class="btn sm o noprint" onclick="setSt('+o.row+',\'Livré\')">Livré</button>':'')+(o.statut==="En attente"?'<button class="btn sm p noprint" onclick="setSt('+o.row+',\'Payé\')">Payé reçu</button>':'')+'</div></div>'});
+    h+='</div></div>';
+  });
+  return h;
+}
+function viewStock(){
+  var S=D.stock||[],pjv=0;S.forEach(function(s){if(s.id==="pj")pjv=Number(s.stock)});
+  var dishes=S.filter(function(s){return /^t\d+$/.test(s.id)});
+  var h='<div class="box"><h3>⭐ Plat du jour</h3><p class="note" style="margin:0">Il apparaît en grand en haut des sites.</p><div class="row"><select id="pjs"><option value="0">Aucun</option>'+dishes.map(function(s){var n=Number(s.id.slice(1))+1;return '<option value="'+n+'"'+(pjv===n?" selected":"")+'>'+esc(String(s.nom).replace(/ \(demain\)$/,""))+'</option>'}).join("")+'</select><button class="btn p" onclick="setPj()">Enregistrer</button></div></div>';
+  h+='<p class="note">Changez un nombre puis touchez OK. « demain » = prochain jour de livraison.</p><div class="sk">';
+  h+=S.filter(function(s){return s.id!=="pj"}).map(function(s){var v=Number(s.stock);return '<div class="si'+(v<=0?" out":v<=3?" low":"")+'"><span>'+esc(s.nom)+'<small>'+(v<=0?"Épuisé":v<=3?"Presque épuisé":"Disponible")+'</small></span><input type="number" inputmode="numeric" min="0" id="s_'+esc(s.id)+'" value="'+esc(s.stock)+'"><button class="btn sm p" onclick="setStock(\''+esc(s.id)+'\')">OK</button></div>'}).join("");
+  h+='</div><div class="box" style="margin-top:14px"><h3>🔄 Nouvelle journée</h3><p class="note" style="margin:0">Remet tous les plats (aujourd’hui et demain) à ce nombre.</p><div class="row"><input type="number" inputmode="numeric" id="rv" value="50" style="max-width:120px"><button class="btn p" onclick="resetAll()">Remettre le stock</button></div></div>';
+  return h;
+}
+function viewPoints(){
+  var P=(D.points||[]).slice().sort(function(a,b){return b.points-a.points}),g=D.goal||30;
+  return '<p class="note">Objectif : '+g+' points. Les points arrivent quand vous touchez « Payé reçu ».</p>'+(P.length?P.map(function(p){var pc=Math.min(100,Math.round(p.points/g*100));return '<div class="pt" style="margin-bottom:8px"><span>'+esc(p.tel)+'</span><div class="prog"><i style="width:'+pc+'%"></i></div><b>'+esc(p.points)+' / '+g+'</b></div>'}).join(""):'<div class="empty">Pas encore de points.</div>');
+}
+function viewRewards(){
+  var R=D.rewards||[];
+  return R.length?R.map(function(r){return '<div class="pt" style="margin-bottom:8px"><span><b>🎁 '+esc(r.cadeau)+'</b><br><small style="color:var(--mu)">'+esc(r.tel)+'</small></span><button class="btn sm p" onclick="remis('+r.row+')">Remis</button></div>'}).join(""):'<div class="empty">Aucun cadeau à remettre.</div>';
+}
+
+/* ---------- Actions (mêmes actions que l'ancien tableau de bord) ---------- */
+function setSt(row,s){api({action:"statut",row:row,statut:s}).then(function(d){if(d&&d.msg)alert("🎁 Cadeau gagné : "+d.msg);toast(s==="Payé"?"Paiement enregistré":s==="Livré"?"Commande livrée":"Commande annulée");load()}).catch(function(){toast("Échec, réessayez")})}
+function cancelOrder(row,code){if(confirm("Annuler la commande "+code+" ?"))setSt(row,"Annulé")}
+function setStock(id){api({action:"stock",id:id,value:$("#s_"+id).value}).then(function(){toast("Stock enregistré");load()}).catch(function(){toast("Échec, réessayez")})}
+function setPj(){api({action:"stock",id:"pj",value:$("#pjs").value}).then(function(){toast("Plat du jour enregistré");load()}).catch(function(){toast("Échec, réessayez")})}
+function resetAll(){var v=$("#rv").value;if(!confirm("Remettre tous les plats à "+v+" ?"))return;api({action:"reset",value:v}).then(function(){toast("Stock remis à "+v);load()}).catch(function(){toast("Échec, réessayez")})}
+function remis(row){api({action:"remis",row:row}).then(function(){toast("Cadeau remis");load()}).catch(function(){toast("Échec, réessayez")})}
+
+/* ---------- Démarrage ---------- */
+(function(){var k=ls(KEY_LS)||ss("gupAdminKey")||ss("ak");if(k){key=k;$("#snd").hidden=false;load(true)}})();
+</script>
+</body>
+</html>
