@@ -416,6 +416,8 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-to
 .livnext{padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--gold) 14%,var(--card));font-size:13.5px;color:var(--ink2)}
 .livnext b{color:var(--ink)}
 .sum .ok{color:var(--ok);font-weight:700}
+.addnote{align-self:flex-start;font:inherit;font-weight:700;font-size:14px;color:var(--gold);padding:4px 0;cursor:pointer;text-align:left}
+.addnote span{font-weight:500;color:var(--mu)}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
@@ -726,7 +728,9 @@ var P = [
 
 /* ===================================================================== */
 var pjIdx=-1;D.forEach(function(x,i){if(PJ_NAME&&x.n===PJ_NAME)pjIdx=i});
-var team=false,tnames={},lastOrder=null;
+var team=false,tnames={},lastOrder=null,noteOpen=false;
+// La « Commande d’équipe » n’apparaît qu’à partir de ce nombre de plats
+var TEAM_MIN = 5;
 var lc={},dayMode="t",cat="all",q="",cur=-1,cq=1,cday="t",busy=false,sentFlag=false;
 var cart={},sel={},pcat="Tout",cartMode="lunch",lastFocus=null,pay={total:0,mode:"t",jour:""};
 
@@ -898,11 +902,14 @@ function drawCart(){
   h+='<label class="field">Lieu de livraison<input id="cl" autocomplete="organization" placeholder="Entreprise, service ou étage" value="'+esc(keep.l!=null?keep.l:lieu)+'"></label>';
   h+='<label class="field">Votre numéro WhatsApp<input id="ct" type="tel" inputmode="tel" autocomplete="tel" placeholder="05 00 00 00 00" value="'+esc(keep.t!=null?keep.t:tel)+'"><span class="hint">Sert aussi à compter vos points fidélité.</span></label>';
   h+='<label class="field">Votre nom <span class="hint" style="display:inline">(facultatif)</span><input id="cn" autocomplete="given-name" placeholder="Pour vous trouver à la livraison" value="'+esc(keep.n!=null?keep.n:nom)+'"></label>';
-  h+='<label class="field">Instructions de livraison <span class="hint" style="display:inline">(facultatif)</span><input id="cnote" placeholder="Ex. : appelez-moi à l’accueil, sans piment…" value="'+esc(keep.o!=null?keep.o:"")+'"></label>';
+  var noteVal=keep.o!=null?keep.o:"",showNote=noteOpen||!!noteVal;
+  h+='<button type="button" class="addnote" onclick="noteOpen=true;drawCart();var i=document.getElementById(\'cnote\');if(i)i.focus()"'+(showNote?' hidden':'')+'>+ Ajouter une instruction <span>(allergie, accès, sans piment…)</span></button>';
+  h+='<label class="field"'+(showNote?'':' hidden')+'>Instruction de livraison<input id="cnote" placeholder="Ex. : allergie arachide, appelez-moi à l’accueil…" value="'+esc(noteVal)+'"></label>';
   h+='</form>';
+  if(lcount()>=TEAM_MIN){
   h+='<div class="team"><label class="sw"><span>Commande d’équipe<small>Indiquez à qui est destiné chaque plat.</small></span><input type="checkbox" id="tsw"'+(team?" checked":"")+' onchange="saveTeam();team=this.checked;drawCart()"></label>';
   if(team){h+='<div class="tm">';ks.forEach(function(k){for(var u=0;u<lc[k];u++){var id=k+"-"+u;h+='<span>'+esc(D[k].n.split(" (")[0])+'</span><input class="tn" data-id="'+id+'" placeholder="Nom du collègue" value="'+esc(tnames[id]||"")+'" oninput="tnames[this.dataset.id]=this.value">'}});h+='</div>'}
-  h+='</div>';
+  h+='</div>';}
   h+='<div class="info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><span><b>Paiement par Wave.</b> Après votre commande, vous recevez sur WhatsApp le lien pour payer. Payez avant 22h'+(dayMode==="d"?" (pour aujourd’hui : dès réception du lien)":"")+', sinon elle est annulée.</span></div>';
   $("#cbody").innerHTML=h;
   var c=lcount();
@@ -928,13 +935,13 @@ function sendLunch(){
   var mode=dayMode,total=0;
   for(var j=0;j<ks.length;j++){if(lc[ks[j]]>stk(D[ks[j]],mode)){$(err).textContent="Plus assez de stock pour "+D[ks[j]].n+".";return}total+=D[ks[j]].p*lc[ks[j]]}
   var jour=jourTx(mode,di);
-  saveTeam();var note=($("#cnote").value||"").trim();
-  var lines=ks.map(function(k){var nm2=[];if(team)for(var u=0;u<lc[k];u++){var v=(tnames[k+"-"+u]||"").trim();if(v)nm2.push(v)}return "- "+lc[k]+" x "+D[k].n+(nm2.length?" ("+nm2.join(", ")+")":"")}).join("\n");
+  saveTeam();var note=($("#cnote").value||"").trim(),useTeam=team&&lcount()>=TEAM_MIN;
+  var lines=ks.map(function(k){var nm2=[];if(useTeam)for(var u=0;u<lc[k];u++){var v=(tnames[k+"-"+u]||"").trim();if(v)nm2.push(v)}return "- "+lc[k]+" x "+D[k].n+(nm2.length?" ("+nm2.join(", ")+")":"")}).join("\n");
   var nPl=lcount(),fee=livFee(nPl),sub=total;total=sub+fee;
-  var teamTx=[];if(team)ks.forEach(function(k){var nn=[];for(var u=0;u<lc[k];u++){var v=(tnames[k+"-"+u]||"").trim();if(v)nn.push(v)}if(nn.length)teamTx.push(D[k].n.split(" (")[0]+" : "+nn.join(", "))});
+  var teamTx=[];if(useTeam)ks.forEach(function(k){var nn=[];for(var u=0;u<lc[k];u++){var v=(tnames[k+"-"+u]||"").trim();if(v)nn.push(v)}if(nn.length)teamTx.push(D[k].n.split(" (")[0]+" : "+nn.join(", "))});
   // Infos pour le tableau de bord (champ « nom »)
   var adm=[];if(nm)adm.push(nm);if(teamTx.length)adm.push("Équipe → "+teamTx.join(" ; "));if(note)adm.push("Note → "+note);
-  var code=newCode();pay={total:total,sub:sub,fee:fee,n:nPl,mode:mode,jour:jour,code:code,lieu:l,nom:nm,tel:t,note:note,items:ks.map(function(k){return {n:D[k].n,q:lc[k],p:D[k].p}}),team:team};
+  var code=newCode();pay={total:total,sub:sub,fee:fee,n:nPl,mode:mode,jour:jour,code:code,lieu:l,nom:nm,tel:t,note:note,items:ks.map(function(k){return {n:D[k].n,q:lc[k],p:D[k].p}}),team:useTeam};
   ls("gplusLast",JSON.stringify({lc:JSON.parse(JSON.stringify(lc))}));
   reserve(ks.map(function(k){return {id:mode+k,qty:lc[k]}}),code,err,"#csend",function(u){
     wa("Commande Grayali up, code "+code+"\n"+lines+(EAU_OFFERTE?"\n+ "+plural(nPl,"bouteille")+" d’eau offerte"+(nPl>1?"s":""):"")+"\nLivraison : "+jour+", entre 12h et 12h40\nLieu : "+l+(nm?"\nNom : "+nm:"")+(note?"\nInstructions : "+note:"")+"\nMon numéro : "+t+"\nPlats : "+f(sub)+"\nFrais de livraison : "+(fee?f(fee):"offerts")+"\nTotal : "+f(total)+"\nPaiement : Wave"+(u?"\n⚠️ Stock non vérifié":""),code);
@@ -1096,7 +1103,7 @@ function showFin(){if(sentFlag)$("#fb").hidden=false}
 document.addEventListener("visibilitychange",function(){if(!document.hidden)showFin()});
 window.addEventListener("focus",showFin);
 function fin(){
-  if(pay.jour==="Boutique"){cart={};sel={}}else{lc={};team=false;tnames={};saveLc()}
+  if(pay.jour==="Boutique"){cart={};sel={}}else{lc={};team=false;tnames={};noteOpen=false;var cn=$("#cnote");if(cn)cn.value="";saveLc()}
   sentFlag=false;closeOv("done");renderAll();toast("Merci ! À tout à l’heure 👋");
 }
 
