@@ -413,6 +413,9 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-to
 .pinfo ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
 .pinfo li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink2)}
 .pinfo li i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--gold);color:#1c1c1c;font-style:normal;font-weight:800;display:grid;place-items:center;font-size:14px}
+.livnext{padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--gold) 14%,var(--card));font-size:13.5px;color:var(--ink2)}
+.livnext b{color:var(--ink)}
+.sum .ok{color:var(--ok);font-weight:700}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
@@ -454,9 +457,9 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-to
         <a class="btn g" href="#how">Comment ça marche</a>
       </div>
       <div class="facts">
-        <div><b id="fPrice">1 500 F</b>le plat, livraison incluse</div>
+        <div><b id="fPrice">1 500 F</b>le plat + eau offerte</div>
         <div><b>12h–12h40</b>livré à votre bureau</div>
-        <div><b>30 pts</b>= un cadeau surprise</div>
+        <div><b>Offerte</b>livraison dès 30 plats</div>
       </div>
       <div class="cd" id="cd"></div>
     </div>
@@ -480,7 +483,7 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-to
       <div>
         <span class="eyebrow">Le menu</span>
         <h2>Choisissez votre plat</h2>
-        <p>Un prix unique, livraison comprise. Le stock est mis à jour en direct : quand c’est épuisé, c’est épuisé.</p>
+        <p>Un prix unique, et une bouteille d’eau offerte avec chaque plat. Le stock est mis à jour en direct : quand c’est épuisé, c’est épuisé.</p>
       </div>
     </div>
     <div class="ctrl">
@@ -548,7 +551,7 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-to
         <a class="btn p" id="bizcta" href="#" target="_blank" rel="noopener">Parler d’une formule entreprise</a>
       </div>
       <ul>
-        <li><i>👥</i><span><b>Commande d’équipe</b>Un nom par plat, tout est livré ensemble.</span></li>
+        <li><i>👥</i><span><b>Commande d’équipe</b>Un nom par plat, tout est livré ensemble. Livraison offerte dès 30 plats.</span></li>
         <li><i>📄</i><span><b>Bon de commande</b>Un document propre à garder ou à transmettre au service.</span></li>
         <li><i>💬</i><span><b>Un contact direct</b>Une question, un imprévu&nbsp;? Écrivez-nous sur WhatsApp.</span></li>
       </ul>
@@ -562,7 +565,8 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-to
     <div class="faq">
       <details><summary>Jusqu’à quelle heure puis-je commander pour aujourd’hui ?</summary><p>Jusqu’à <b class="cutx">11h30</b>, du lundi au vendredi. Après, votre commande part pour le prochain jour ouvré. Vous pouvez commander à n’importe quelle heure.</p></details>
       <details><summary>Comment payer ?</summary><p>Par Wave uniquement. Après votre message WhatsApp, vous recevez un lien de paiement. Payez avant 22h (pour une commande du jour, dès réception du lien), sinon la commande est annulée.</p></details>
-      <details><summary>La livraison est-elle payante ?</summary><p>Non, elle est incluse dans le prix du plat. Nous livrons à votre bureau, à l’accueil ou dans votre service entre 12h et 12h40.</p></details>
+      <details><summary>Combien coûte la livraison ?</summary><p>Elle dépend du nombre de plats dans la commande : <b>1 000 F</b> de 1 à 9 plats, <b>500 F</b> de 10 à 29 plats, et <b>offerte dès 30 plats</b>. Regroupez les commandes de votre équipe pour payer moins. Nous livrons à votre bureau, à l’accueil ou dans votre service entre 12h et 12h40.</p></details>
+      <details><summary>La bouteille d’eau est-elle vraiment offerte ?</summary><p>Oui : chaque plat commandé est livré avec une bouteille d’eau, sans supplément.</p></details>
       <details><summary>À quoi sert mon code de commande ?</summary><p>C’est votre preuve de commande. Donnez-le au livreur pour récupérer votre plat. Faites une capture d’écran pour le garder.</p></details>
       <details><summary>Puis-je commander pour mon équipe ?</summary><p>Oui. Ajoutez plusieurs plats dans votre panier, tant qu’il reste du stock, et tout est livré au même endroit. Un panier correspond à un seul jour de livraison.</p></details>
       <details><summary>Comment marchent les points ?</summary><p>1 plat payé = 1 point, ajouté quand votre paiement est confirmé. À 30 points, vous gagnez un cadeau surprise. Consultez votre total dans la section Fidélité avec votre numéro WhatsApp.</p></details>
@@ -602,7 +606,7 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-to
     <div class="dimg" id="dimg"></div>
     <div class="dbody">
       <div><h2 id="dn"></h2><p class="desc" id="dd" style="margin-top:8px"></p></div>
-      <div class="meta"><span class="price" id="dp"></span><span class="pill" id="ds"></span></div>
+      <div class="meta"><span class="price" id="dp"></span><span class="pill" id="ds"></span><span class="pill">💧 Eau offerte</span></div>
       <div class="flb">Jour de livraison</div>
       <div class="daysel" id="dday"></div>
       <div class="ln" style="display:flex;justify-content:space-between;align-items:center"><span class="flb" style="margin:0">Quantité</span>
@@ -685,6 +689,10 @@ var TODAY_ON = true;
 var PJ_NAME = "Choukouya de poulet";
 // Objectif de points (remplacé par la valeur du tableau de bord si disponible)
 var GOAL = 30;
+// Bouteille d'eau offerte avec chaque plat
+var EAU_OFFERTE = true;
+// Livraison par paliers : [à partir de N plats, prix]. Du plus grand au plus petit.
+var LIVRAISON = [[30,0],[10,500],[1,1000]];
 
 /* Plats — ⚠️ garde le MÊME ORDRE que le site classique : le stock du
    tableau de bord est lié à la position (t0, t1, … / d0, d1, …). */
@@ -755,6 +763,9 @@ function jourTx(m,di){return m==="d"?"aujourd’hui, "+di.tdLab:di.next}
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
 function lcount(){var t=0;for(var k in lc)t+=lc[k];return t}
 function ltot(){var t=0;for(var k in lc)t+=D[k].p*lc[k];return t}
+function livFee(n){for(var i=0;i<LIVRAISON.length;i++)if(n>=LIVRAISON[i][0])return LIVRAISON[i][1];return 0}
+function livNext(n){var cur=livFee(n),best=null;for(var i=0;i<LIVRAISON.length;i++){if(LIVRAISON[i][0]>n&&LIVRAISON[i][1]<cur&&(!best||LIVRAISON[i][0]<best[0]))best=LIVRAISON[i]}return best}
+function lgrand(){var n=lcount();return ltot()+(n?livFee(n):0)}
 function saveLc(){ls("gplusCart",JSON.stringify({lc:lc,m:dayMode,k:dayInfo().key}))}
 function loadLc(){
   try{var o=JSON.parse(ls("gplusCart")||"null");if(!o||o.k!==dayInfo().key)return;lc=o.lc||{};if(o.m==="d"||o.m==="t")dayMode=o.m}catch(e){}
@@ -867,7 +878,7 @@ function drawBar(){
   var fb=$("#fab");if(fb)fb.classList.toggle("hide",c>0||!$("#cart").hidden||!$("#dlg").hidden||!$("#done").hidden);
   $("#fbn").textContent=plural(c,"plat");
   $("#fbd").textContent="Livraison "+(dayMode==="d"?"aujourd’hui":di.nextName);
-  $("#fbt").textContent=f(ltot());
+  $("#fbt").textContent=f(lgrand());
 }
 function openCart(){cartMode="lunch";drawCart();openOv("cart")}
 function drawCart(){
@@ -895,7 +906,8 @@ function drawCart(){
   h+='<div class="info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><span><b>Paiement par Wave.</b> Après votre commande, vous recevez sur WhatsApp le lien pour payer. Payez avant 22h'+(dayMode==="d"?" (pour aujourd’hui : dès réception du lien)":"")+', sinon elle est annulée.</span></div>';
   $("#cbody").innerHTML=h;
   var c=lcount();
-  $("#cfoot").innerHTML='<div class="sum"><div><span>'+plural(c,"plat")+'</span><span>'+f(ltot())+'</span></div><div><span>Livraison au bureau</span><span>Offerte</span></div><div class="t"><span>Total</span><span>'+f(ltot())+'</span></div></div><p class="err" id="cerr"></p><button class="btn p blk" id="csend" onclick="sendLunch()">Commander sur WhatsApp</button>';
+  var fee=livFee(c),nx=livNext(c);
+  $("#cfoot").innerHTML=(nx?'<div class="livnext">🚚 Ajoutez <b>'+plural(nx[0]-c,"plat")+'</b> pour une livraison '+(nx[1]?'à <b>'+f(nx[1])+'</b>':'<b>offerte</b>')+'</div>':'')+'<div class="sum"><div><span>'+plural(c,"plat")+'</span><span>'+f(ltot())+'</span></div>'+(EAU_OFFERTE?'<div><span>💧 '+plural(c,"bouteille")+' d’eau</span><span class="ok">'+(c>1?"Offertes":"Offerte")+'</span></div>':'')+'<div><span>Livraison au bureau</span><span'+(fee?'>'+f(fee):' class="ok">Offerte')+'</span></div><div class="t"><span>Total</span><span>'+f(ltot()+fee)+'</span></div></div><p class="err" id="cerr"></p><button class="btn p blk" id="csend" onclick="sendLunch()">Commander sur WhatsApp</button>';
 }
 function saveTeam(){document.querySelectorAll(".tn").forEach(function(e){tnames[e.dataset.id]=e.value})}
 function lset(k,n){saveTeam();
@@ -918,11 +930,15 @@ function sendLunch(){
   var jour=jourTx(mode,di);
   saveTeam();var note=($("#cnote").value||"").trim();
   var lines=ks.map(function(k){var nm2=[];if(team)for(var u=0;u<lc[k];u++){var v=(tnames[k+"-"+u]||"").trim();if(v)nm2.push(v)}return "- "+lc[k]+" x "+D[k].n+(nm2.length?" ("+nm2.join(", ")+")":"")}).join("\n");
-  var code=newCode();pay={total:total,mode:mode,jour:jour,code:code,lieu:l,nom:nm,tel:t,note:note,items:ks.map(function(k){return {n:D[k].n,q:lc[k],p:D[k].p}}),team:team};
+  var nPl=lcount(),fee=livFee(nPl),sub=total;total=sub+fee;
+  var teamTx=[];if(team)ks.forEach(function(k){var nn=[];for(var u=0;u<lc[k];u++){var v=(tnames[k+"-"+u]||"").trim();if(v)nn.push(v)}if(nn.length)teamTx.push(D[k].n.split(" (")[0]+" : "+nn.join(", "))});
+  // Infos pour le tableau de bord (champ « nom »)
+  var adm=[];if(nm)adm.push(nm);if(teamTx.length)adm.push("Équipe → "+teamTx.join(" ; "));if(note)adm.push("Note → "+note);
+  var code=newCode();pay={total:total,sub:sub,fee:fee,n:nPl,mode:mode,jour:jour,code:code,lieu:l,nom:nm,tel:t,note:note,items:ks.map(function(k){return {n:D[k].n,q:lc[k],p:D[k].p}}),team:team};
   ls("gplusLast",JSON.stringify({lc:JSON.parse(JSON.stringify(lc))}));
   reserve(ks.map(function(k){return {id:mode+k,qty:lc[k]}}),code,err,"#csend",function(u){
-    wa("Commande Grayali up PRO 1500, code "+code+"\n"+lines+"\nLivraison : "+jour+", entre 12h et 12h40\nLieu : "+l+(nm?"\nNom : "+nm:"")+(note?"\nInstructions : "+note:"")+"\nMon numéro : "+t+"\nTotal : "+f(total)+"\nPaiement : Wave"+(u?"\n⚠️ Stock non vérifié":""),code);
-  },{tel:t,lieu:l,jour:jour,total:total,nom:nm});
+    wa("Commande Grayali up, code "+code+"\n"+lines+(EAU_OFFERTE?"\n+ "+plural(nPl,"bouteille")+" d’eau offerte"+(nPl>1?"s":""):"")+"\nLivraison : "+jour+", entre 12h et 12h40\nLieu : "+l+(nm?"\nNom : "+nm:"")+(note?"\nInstructions : "+note:"")+"\nMon numéro : "+t+"\nPlats : "+f(sub)+"\nFrais de livraison : "+(fee?f(fee):"offerts")+"\nTotal : "+f(total)+"\nPaiement : Wave"+(u?"\n⚠️ Stock non vérifié":""),code);
+  },{tel:t,lieu:l,jour:jour,total:total,nom:adm.join(" · ")});
 }
 
 /* ---------- Boutique ---------- */
@@ -1060,7 +1076,7 @@ function reorder(){
 function bon(){
   var o=pay,dt=new Date().toLocaleString("fr-FR",{dateStyle:"long",timeStyle:"short",timeZone:"UTC"});
   var rows=(o.items||[]).map(function(i){return '<tr><td>'+esc(i.n)+'</td><td>'+i.q+'</td><td>'+f(i.p)+'</td><td>'+f(i.p*i.q)+'</td></tr>'}).join("");
-  var html='<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bon de commande '+esc(o.code)+'</title><style>body{font:15px/1.5 Arial,sans-serif;color:#1c1c1c;max-width:720px;margin:0 auto;padding:32px 24px}h1{font-size:26px;margin:0}.lg{font-weight:800;font-size:22px}.lg i{font-style:normal;background:#e9a84b;padding:0 8px 2px;border-radius:7px;margin-left:4px}.hd{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #e9a84b;padding-bottom:16px;margin-bottom:20px}.code{font-size:30px;font-weight:800;letter-spacing:2px}table{width:100%;border-collapse:collapse;margin:16px 0}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #ddd}th{background:#f5f0ea;font-size:13px;text-transform:uppercase;letter-spacing:.05em}td:nth-child(n+2),th:nth-child(n+2){text-align:right}.tot td{font-weight:800;font-size:18px;border:0}.m{color:#666}.st{display:inline-block;padding:4px 10px;border-radius:6px;background:#fdeadc;color:#a2541c;font-weight:700;font-size:13px}button{margin-top:24px;padding:12px 20px;border:0;border-radius:999px;background:#1c1c1c;color:#fff;font-weight:700;font-size:15px}@media print{button{display:none}}</style></head><body><div class="hd"><div><div class="lg">Grayali<i>up</i></div><p class="m" style="margin:6px 0 0">Livraison de repas au bureau<br>WhatsApp : 05 75 02 84 17</p></div><div style="text-align:right"><h1>Bon de commande</h1><div class="code">'+esc(o.code)+'</div><div class="m">'+dt+'</div></div></div><p><b>Livraison :</b> '+esc(cap(o.jour||""))+', 12h–12h40<br><b>Lieu :</b> '+esc(o.lieu||"")+(o.nom?'<br><b>Nom :</b> '+esc(o.nom):"")+'<br><b>Téléphone :</b> '+esc(o.tel||"")+(o.note?'<br><b>Instructions :</b> '+esc(o.note):"")+'</p><table><tr><th>Plat</th><th>Qté</th><th>Prix</th><th>Total</th></tr>'+rows+'<tr class="tot"><td>Total</td><td></td><td></td><td>'+f(o.total)+'</td></tr></table><p><span class="st">Paiement par Wave à réception du lien WhatsApp</span></p><p class="m">Livraison incluse. Ce document n’est pas une facture acquittée.</p><button onclick="print()">Imprimer / enregistrer en PDF</button></body></html>';
+  var html='<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bon de commande '+esc(o.code)+'</title><style>body{font:15px/1.5 Arial,sans-serif;color:#1c1c1c;max-width:720px;margin:0 auto;padding:32px 24px}h1{font-size:26px;margin:0}.lg{font-weight:800;font-size:22px}.lg i{font-style:normal;background:#e9a84b;padding:0 8px 2px;border-radius:7px;margin-left:4px}.hd{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #e9a84b;padding-bottom:16px;margin-bottom:20px}.code{font-size:30px;font-weight:800;letter-spacing:2px}table{width:100%;border-collapse:collapse;margin:16px 0}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #ddd}th{background:#f5f0ea;font-size:13px;text-transform:uppercase;letter-spacing:.05em}td:nth-child(n+2),th:nth-child(n+2){text-align:right}.tot td{font-weight:800;font-size:18px;border:0}.m{color:#666}.st{display:inline-block;padding:4px 10px;border-radius:6px;background:#fdeadc;color:#a2541c;font-weight:700;font-size:13px}button{margin-top:24px;padding:12px 20px;border:0;border-radius:999px;background:#1c1c1c;color:#fff;font-weight:700;font-size:15px}@media print{button{display:none}}</style></head><body><div class="hd"><div><div class="lg">Grayali<i>up</i></div><p class="m" style="margin:6px 0 0">Livraison de repas au bureau<br>WhatsApp : 05 75 02 84 17</p></div><div style="text-align:right"><h1>Bon de commande</h1><div class="code">'+esc(o.code)+'</div><div class="m">'+dt+'</div></div></div><p><b>Livraison :</b> '+esc(cap(o.jour||""))+', 12h–12h40<br><b>Lieu :</b> '+esc(o.lieu||"")+(o.nom?'<br><b>Nom :</b> '+esc(o.nom):"")+'<br><b>Téléphone :</b> '+esc(o.tel||"")+(o.note?'<br><b>Instructions :</b> '+esc(o.note):"")+'</p><table><tr><th>Plat</th><th>Qté</th><th>Prix</th><th>Total</th></tr>'+rows+(EAU_OFFERTE?'<tr><td>Bouteilles d’eau</td><td>'+(o.n||0)+'</td><td>Offert</td><td>0 FCFA</td></tr>':'')+'<tr><td>Livraison au bureau</td><td>1</td><td></td><td>'+(o.fee?f(o.fee):'Offerte')+'</td></tr><tr class="tot"><td>Total</td><td></td><td></td><td>'+f(o.total)+'</td></tr></table><p><span class="st">Paiement par Wave à réception du lien WhatsApp</span></p><p class="m">Une bouteille d’eau offerte par plat. Ce document n’est pas une facture acquittée.</p><button onclick="print()">Imprimer / enregistrer en PDF</button></body></html>';
   var w=window.open("","_blank");if(w){w.document.write(html);w.document.close()}else toast("Autorisez les fenêtres pour télécharger le bon");
 }
 /* ---------- Photos du haut ---------- */
