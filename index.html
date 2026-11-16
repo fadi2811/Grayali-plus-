@@ -502,7 +502,7 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-to
 
 <section class="s alt" id="how">
   <div class="wrap">
-    <div class="sh2"><div><span class="eyebrow">Comment ça marche</span><h2>Simple, du choix à l’assiette</h2><p>Commandez à toute heure. Pour être livré aujourd’hui, commandez avant <b id="cutTx">11h30</b>. Sinon, c’est pour le prochain jour ouvré.</p></div></div>
+    <div class="sh2"><div><span class="eyebrow">Comment ça marche</span><h2>Simple, du choix à l’assiette</h2><p>Commandez à toute heure. Pour être livré aujourd’hui, commandez avant <b id="cutTx">10h30</b>. Sinon, c’est pour le prochain jour ouvré.</p></div></div>
     <div class="steps">
       <div class="step reveal"><div class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-16 0z"/><path d="M12 3v3M8 4v2M16 4v2"/></svg></div><h3>Choisissez vos plats</h3><p>Pour aujourd’hui ou le prochain jour ouvré, pour vous seul ou pour toute l’équipe.</p></div>
       <div class="step reveal"><div class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>Indiquez où livrer</h3><p>Votre entreprise, le service ou l’étage, et votre numéro WhatsApp.</p></div>
@@ -563,7 +563,7 @@ footer .cp{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-to
   <div class="wrap">
     <div class="sh2"><div><span class="eyebrow">Questions fréquentes</span><h2>Tout ce qu’il faut savoir</h2></div></div>
     <div class="faq">
-      <details><summary>Jusqu’à quelle heure puis-je commander pour aujourd’hui ?</summary><p>Jusqu’à <b class="cutx">11h30</b>, du lundi au vendredi. Après, votre commande part pour le prochain jour ouvré. Vous pouvez commander à n’importe quelle heure.</p></details>
+      <details><summary>Jusqu’à quelle heure puis-je commander pour aujourd’hui ?</summary><p>Jusqu’à <b class="cutx">10h30</b>, du lundi au vendredi. Après, votre commande part pour le prochain jour ouvré. Vous pouvez commander à n’importe quelle heure.</p></details>
       <details><summary>Comment payer ?</summary><p>Par Wave uniquement. Après votre message WhatsApp, vous recevez un lien de paiement. Payez avant 22h (pour une commande du jour, dès réception du lien), sinon la commande est annulée.</p></details>
       <details><summary>Combien coûte la livraison ?</summary><p>Elle dépend du nombre de plats dans la commande : <b>1 000 F</b> de 1 à 9 plats, <b>500 F</b> de 10 à 29 plats, et <b>offerte dès 30 plats</b>. Regroupez les commandes de votre équipe pour payer moins. Nous livrons à votre bureau, à l’accueil ou dans votre service entre 12h et 12h40.</p></details>
       <details><summary>La bouteille d’eau est-elle vraiment offerte ?</summary><p>Oui : chaque plat commandé est livré avec une bouteille d’eau, sans supplément.</p></details>
@@ -681,8 +681,8 @@ var STOCK_URL = "https://script.google.com/macros/s/AKfycbxrVnJxud2inVGScyjxx62w
 // Boutique : true pour l’ouvrir. Livraison : false pour la fermer.
 var SHOP_OPEN = false;
 var LIV_OPEN = true;
-// Fin des commandes du jour (heure de Côte d’Ivoire), en minutes : 11h30 = 11*60+30
-var TODAY_END = 11*60+30;
+// Fin des commandes du jour (heure de Côte d’Ivoire), en minutes : 10h30 = 10*60+30
+var TODAY_END = 10*60+30;
 // Commandes pour le jour même
 var TODAY_ON = true;
 // Plat du jour par défaut (nom exact). Le tableau de bord peut le changer.
